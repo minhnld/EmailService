@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  vn.kamereo.email.features.send_email.spring.config.SendEmailFeaturesAutoConfiguration

@@ -1,0 +1,45 @@
+#!/bin/bash
+# From gist at https://gist.github.com/chadmaughan/5889802
+
+function unstash_changes_if_necessary {
+  # unstash the unstashed changes
+  if [[ ${HAS_DIFF_ON_LOCAL} -ne 0 ]];
+  then
+    echo "unstashing the local changes..."
+    git stash pop -q
+  fi
+}
+
+# stash any unstaged changes
+git update-index --refresh && git diff-index --quiet HEAD --
+HAS_DIFF_ON_LOCAL=$?
+if [[ ${HAS_DIFF_ON_LOCAL} -ne 0 ]];
+then
+  echo "stashing the local changes for test..."
+  git stash -q --keep-index
+fi
+
+./gradlew ktlintCheck
+RESULT=$?
+if [ $RESULT -ne 0 ];
+then
+    echo "failed ktlintCheck"
+    unstash_changes_if_necessary
+    exit $RESULT
+else
+    echo "ktlintCheck PASSED!!"
+fi
+
+./gradlew detekt
+RESULT=$?
+if [ $RESULT -ne 0 ];
+then
+    echo "failed detekt"
+    unstash_changes_if_necessary
+    exit $RESULT
+else
+    echo "detekt PASSED!!"
+fi
+
+# return the './gradlew test' exit code
+exit $RESULT

@@ -1,0 +1,39 @@
+input EmailContact {
+  name: String!
+  address: String!
+}
+
+enum EmailContentType {
+  PLAIN_TEXT,
+  HTML
+}
+
+input EmailBody {
+  type: EmailContentType!
+  value: String!
+}
+
+input SendEmailInput {
+  sender: EmailContact!,
+  recipients: [EmailContact!]!,
+  cc: [EmailContact!]!,
+  bcc: [EmailContact!]!,
+  subject: String!,
+  body: EmailBody!
+}
+
+type ResponseHeader {
+  key: String!,
+  value: String!
+}
+
+type SendEmailResponse {
+  statusCode: Int
+  body: String
+  header: [ResponseHeader]
+}
+
+type Mutation {
+  # Email
+  sendEmail(input: SendEmailInput!): SendEmailResponse
+}

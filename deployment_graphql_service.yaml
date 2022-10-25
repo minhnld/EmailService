@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: arent-demo
+  labels:
+    purpose: demonstrate-arent
+spec:
+  containers:
+    - name: arent-demo-container
+      image: "asia-southeast1-docker.pkg.dev/serious-bearing-366420/hello-repo/hello-app:v7"
+      command: ["/app/run.sh", "vn.kamereo.graphql_api_service.web.ApplicationKt", "graphql-api-service"]
+      env:
+        - name: APP_ENV
+          value: qa
+        - name: SENDGRID_API_KEY
+          value: ""
+  restartPolicy: OnFailure

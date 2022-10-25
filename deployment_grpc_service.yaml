@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: command-demo
+  labels:
+    purpose: demonstrate-command
+spec:
+  containers:
+    - name: command-demo-container
+      image: "asia-southeast1-docker.pkg.dev/serious-bearing-366420/hello-repo/hello-app:v4"
+      command: ["/app/run.sh", "vn.kamereo.email.grpc.ApplicationKt", "grpc-service"]
+      env:
+        - name: APP_ENV
+          value: qa
+        - name: SENDGRID_API_KEY
+          value: ""
+  restartPolicy: OnFailure

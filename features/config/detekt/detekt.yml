@@ -1,0 +1,26 @@
+style:
+  active: true
+  MagicNumber:
+    active: true
+    excludes: [
+      '**/test/**',
+      '**/spring/config/**'
+    ]
+    ignoreNumbers:
+      - '-1'
+      - '0'
+      - '1'
+      - '2'
+    ignoreHashCodeFunction: true
+    ignorePropertyDeclaration: false
+    ignoreLocalVariableDeclaration: false
+    ignoreConstantDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotation: false
+    ignoreNamedArgument: true
+    ignoreEnums: false
+    ignoreRanges: true
+    ignoreExtensionFunctions: true
+complexity:
+  TooManyFunctions:
+    active: false

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package kamereo.email;
+
+option java_package = "vn.kamereo.email";
+
+message EmailInfo {
+  message EmailBody {
+    string type = 1;
+    string value = 2;
+  }
+  message EmailContact {
+    string name = 1;
+    string address = 2;
+  }
+  EmailContact sender = 1;
+  repeated EmailContact recipients = 2;
+  repeated EmailContact cc = 3;
+  repeated EmailContact bcc = 4;
+  string subject = 5;
+  EmailBody body = 6;
+}

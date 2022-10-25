@@ -1,0 +1,32 @@
+<configuration>
+    <variable name="ROOT_LOG_LEVEL" value="${ROOT_LOG_LEVEL:-INFO}"/>
+    <variable name="APP_LOG_LEVEL" value="${APP_LOG_LEVEL:-DEBUG}"/>
+    <variable name="JOOQ_LOG_LEVEL" value="${JOOQ_LOG_LEVEL:-DEBUG}"/>
+
+    <if condition='"${APP_ENV}".equals("local")'>
+        <then>
+            <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{72}.%M - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+            </appender>
+        </else>
+    </if>
+
+    <logger name="org.jooq.tools.LoggerListener" level="${JOOQ_LOG_LEVEL}" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.jooq" level="${JOOQ_LOG_LEVEL}"/>
+
+    <logger name="vn.kamereo" level="${APP_LOG_LEVEL}"/>
+
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

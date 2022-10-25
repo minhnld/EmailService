@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package kamereo.email;
+
+option java_package = "vn.kamereo.email";
+
+import "kamereo/email/email.proto";
+
+message SendEmailRequest {
+  repeated EmailInfo email_infos = 1;
+}
+
+message SendEmailResponse {
+  string status = 1;
+}
+
+service EmailService {
+  rpc SendEmail (SendEmailRequest) returns (SendEmailResponse);
+}

@@ -1,0 +1,50 @@
+kamereo:
+  grpc:
+    client:
+      order-service: ${ORDERSERVICE_TARGET:orderservice-grpc.qa.kamereo.vn:443}
+      supplier-service: ${SUPPLIERSERVICE_TARGET:supplierservice-grpc.qa.kamereo.vn:443}
+      item-search-service: ${SEARCHSERVICE_TARGET:itemsearch-grpc.qa.kamereo.vn:443}
+      buyer-service: ${BUYERSERVICE_TARGET:buyerservice-grpc.qa.kamereo.vn:443}
+      zippy-service: ${ZIPPY_TARGET:zippy-grpc.qa.kamereo.vn:443}
+
+sendgrid:
+  apikey: ${SENDGRID_API_KEY}
+
+dgs:
+  graphql:
+    extensions:
+      scalars:
+        numbers:
+          enabled: false
+        chars:
+          enabled: false
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+  port: 8080
+  shutdown: graceful
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa

@@ -1,0 +1,26 @@
+kamereo:
+  grpc:
+    server:
+      port: 50051
+sendgrid:
+  apikey: ${SENDGRID_API_KEY}
+
+server:
+  shutdown: graceful
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
